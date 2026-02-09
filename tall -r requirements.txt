@@ -1,0 +1,150 @@
+[35m.github/steps/1-preparing.md[m[36m:[m[32m5[m[36m:[mIn this exercise, you will be using different GitHub Copilot features to work on a website that allows students of Mergington High School to sign up for extracurricular [1;31mactivities[m. 🎻 ⚽️ ♟️
+[35m.github/steps/1-preparing.md[m[36m:[m[32m79[m[36m:[m   Great question! This is a specialized [chat [1;31mparticipant[m](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet?tool=vscode#chat-[1;31mparticipants[m) that will explore the project repository and try to include relevant additional context.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m8[m[36m:[mStudents can currently [1;31mregister[m for the same [1;31mactivity[m **more than once**! Let’s see how far Copilot can take us in uncovering the cause and shaping a clean fix.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m23[m[36m:[m> There several other ways to supplement Copilot's knowledge and capabilities like [chat [1;31mparticipants[m](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet?tool=vscode#chat-[1;31mparticipants[m), [chat variables](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet?tool=vscode#chat-variables), [slash commands](https://docs.github.com/en/copilot/using-github-copilot/copilot-chat/github-copilot-chat-cheat-sheet?tool=vscode#slash-commands-1), and [MCP tools](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m25[m[36m:[m### :keyboard: Activity: Use Copilot to fix our [1;31mregistration[m bug :bug:
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m32[m[36m:[m   > @workspace Students are able to [1;31mregister[m twice for an [1;31mactivity[m.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m36[m[36m:[m1. Now that we know the issue is in the `src/app.py` file and the `signup_for_[1;31mactivity[m` method, let's follow Copilot's recommendation and go fix it (semi-manually). We'll start with a comment and let Copilot finish the correction.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m40[m[36m:[m   1. Scroll near the bottom of the file and find the `signup_for_[1;31mactivity[m` method.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m42[m[36m:[m   1. Find the comment line that describes adding a student. Above this is where it seems logical to do our [1;31mregistration[m check.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m58[m[36m:[m   @app.post("/[1;31mactivities[m/{[1;31mactivity[m_name}/signup")
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m59[m[36m:[m   def signup_for_[1;31mactivity[m([1;31mactivity[m_name: str, email: str):
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m60[m[36m:[m      """Sign up a student for an [1;31mactivity[m"""
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m61[m[36m:[m      # Validate [1;31mactivity[m exists
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m62[m[36m:[m      if [1;31mactivity[m_name not in [1;31mactivities[m:
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m65[m[36m:[m      # Get the [1;31mactivity[m
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m66[m[36m:[m      [1;31mactivity[m = [1;31mactivities[m[[1;31mactivity[m_name]
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m69[m[36m:[m      if email in [1;31mactivity[m["[1;31mparticipants[m"]:
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m73[m[36m:[m      [1;31mactivity[m["[1;31mparticipants[m"].append(email)
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m74[m[36m:[m      return {"message": f"Signed up {email} for {[1;31mactivity[m_name}"}
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m81[m[36m:[mIn new project developments, it's often helpful to have some realistic looking fake data for testing. Copilot is excellent at this task, so let's add some more sample [1;31mactivities[m and introduce another way to interact with Copilot using **Inline Chat**
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m85[m[36m:[m1. Near the top of the `src/app.py` file (about line 23), find the `[1;31mactivities[m` variable, where our example extracurricular [1;31mactivities[m are configured.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m96[m[36m:[m   > Add 2 more sports related [1;31mactivities[m, 2 more artistic
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m97[m[36m:[m   > [1;31mactivities[m, and 2 more intellectual [1;31mactivities[m.
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m108[m[36m:[m   # In-memory [1;31mactivity[m database
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m109[m[36m:[m   [1;31mactivities[m = {
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m113[m[36m:[m         "max_[1;31mparticipants[m": 12,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m114[m[36m:[m         "[1;31mparticipants[m": ["michael@mergington.edu", "daniel@mergington.edu"]
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m119[m[36m:[m         "max_[1;31mparticipants[m": 20,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m120[m[36m:[m         "[1;31mparticipants[m": ["emma@mergington.edu", "sophia@mergington.edu"]
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m123[m[36m:[m         "description": "Physical education and sports [1;31mactivities[m",
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m125[m[36m:[m         "max_[1;31mparticipants[m": 30,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m126[m[36m:[m         "[1;31mparticipants[m": ["john@mergington.edu", "olivia@mergington.edu"]
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m131[m[36m:[m         "max_[1;31mparticipants[m": 15,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m132[m[36m:[m         "[1;31mparticipants[m": []
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m137[m[36m:[m         "max_[1;31mparticipants[m": 20,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m138[m[36m:[m         "[1;31mparticipants[m": []
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m143[m[36m:[m         "max_[1;31mparticipants[m": 15,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m144[m[36m:[m         "[1;31mparticipants[m": []
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m149[m[36m:[m         "max_[1;31mparticipants[m": 25,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m150[m[36m:[m         "[1;31mparticipants[m": []
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m155[m[36m:[m         "max_[1;31mparticipants[m": 16,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m156[m[36m:[m         "[1;31mparticipants[m": []
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m161[m[36m:[m         "max_[1;31mparticipants[m": 20,
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m162[m[36m:[m         "[1;31mparticipants[m": []
+[35m.github/steps/2-first-introduction.md[m[36m:[m[32m171[m[36m:[mNice work fixing that bug and expanding the example [1;31mactivities[m! Now let's get our work committed and pushed to GitHub, again with the help of Copilot!
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m34[m[36m:[mOur website lists [1;31mactivities[m, but it's keeping the guest list secret 🤫 
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m36[m[36m:[mLet's use Copilot to change the website to display signed up students under each [1;31mactivity[m!
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m52[m[36m:[m1. Ask Copilot to update our project to display the current [1;31mparticipants[m of [1;31mactivities[m. Wait a moment for the edit suggestions to arrive and be applied.
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m57[m[36m:[m   > Hey Copilot, can you please edit the [1;31mactivity[m cards to add a [1;31mparticipants[m section.
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m58[m[36m:[m   > It will show what [1;31mparticipants[m that are already signed up for that [1;31mactivity[m as a bulleted list.
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m70[m[36m:[m1. Before we simply accept the changes, please check our website again and verify everything is updated as expected. Here is an example of an updated [1;31mactivity[m card. You may need to restart the app or refresh the page.
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m72[m[36m:[m   <img width="350" alt="Activity card with [1;31mparticipant[m info" src="https://github.com/user-attachments/assets/c4d56187-4791-4c8e-87d7-d5ce7cdc0bee" />
+[35m.github/steps/3-copilot-edits.md[m[36m:[m[32m74[m[36m:[m   > 🪧 **Note:** Your [1;31mactivity[m card may look different. Copilot won't always produce the same results.
+[35m.github/steps/4-copilot-agent-mode.md[m[36m:[m[32m34[m[36m:[m### :keyboard: Activity: Use Agent mode to add functional "un[1;31mregister[m" buttons
+[35m.github/steps/4-copilot-agent-mode.md[m[36m:[m[32m49[m[36m:[m1. Time for our test! Let's ask Copilot to add functionality for removing [1;31mparticipants[m.
+[35m.github/steps/4-copilot-agent-mode.md[m[36m:[m[32m54[m[36m:[m   > #codebase Please add a delete icon next to each [1;31mparticipant[m and hide the bullet points.
+[35m.github/steps/4-copilot-agent-mode.md[m[36m:[m[32m55[m[36m:[m   > When clicked, it will un[1;31mregister[m that [1;31mparticipant[m from the [1;31mactivity[m.
+[35m.github/steps/4-copilot-agent-mode.md[m[36m:[m[32m65[m[36m:[m1. Ask Copilot to fix a [1;31mregistration[m bug.
+[35m.github/steps/4-copilot-agent-mode.md[m[36m:[m[32m71[m[36m:[m   > When a [1;31mparticipant[m is [1;31mregister[med, the page must be refreshed to see the change on the [1;31mactivity[m.
+[35m.github/steps/5-copilot-on-github.md[m[36m:[m[32m20[m[36m:[mBoth **Copilot pull request summaries** and **Copilot code review** have limited access, so this [1;31mactivity[m is mostly optional. If you don't have access, skip the optional steps of this [1;31mactivity[m.
+[35m.github/steps/5-copilot-on-github.md[m[36m:[m[32m28[m[36m:[m   - **title:** `Improve student [1;31mactivity[m [1;31mregistration[m system`
+[35m.github/workflows/2-first-introduction.yml[m[36m:[m[32m60[m[36m:[m      - name: Check for additional student [1;31mactivities[m
+[35m.github/workflows/2-first-introduction.yml[m[36m:[m[32m61[m[36m:[m        id: check-additional-[1;31mactivities[m
+[35m.github/workflows/2-first-introduction.yml[m[36m:[m[32m81[m[36m:[m              - description: "New [1;31mactivities[m added to src/app.py. We found ${{ steps.check-additional-[1;31mactivities[m.outputs.occurrences }} [1;31mactivities[m (minimum 4 required)"
+[35m.github/workflows/2-first-introduction.yml[m[36m:[m[32m82[m[36m:[m                passed: ${{ steps.check-additional-[1;31mactivities[m.outcome == 'success' }}
+[35m.github/workflows/3-copilot-edits.yml[m[36m:[m[32m111[m[36m:[m              - description: "Checked app.js for [1;31mparticipant[m info"
+[35m.github/workflows/3-copilot-edits.yml[m[36m:[m[32m113[m[36m:[m              - description: "Checked styles.css for [1;31mparticipant[m info"
+[35msrc/README.md[m[36m:[m[32m3[m[36m:[mA super simple FastAPI application that allows students to view and sign up for extracurricular [1;31mactivities[m.
+[35msrc/README.md[m[36m:[m[32m7[m[36m:[m- View all available extracurricular [1;31mactivities[m
+[35msrc/README.md[m[36m:[m[32m8[m[36m:[m- Sign up for [1;31mactivities[m
+[35msrc/README.md[m[36m:[m[32m32[m[36m:[m| GET    | `/[1;31mactivities[m`                                                     | Get all [1;31mactivities[m with their details and current [1;31mparticipant[m count |
+[35msrc/README.md[m[36m:[m[32m33[m[36m:[m| POST   | `/[1;31mactivities[m/{[1;31mactivity[m_name}/signup?email=student@mergington.edu` | Sign up for an [1;31mactivity[m                                             |
+[35msrc/README.md[m[36m:[m[32m39[m[36m:[m1. **Activities** - Uses [1;31mactivity[m name as identifier:
+[35msrc/README.md[m[36m:[m[32m43[m[36m:[m   - Maximum number of [1;31mparticipants[m allowed
+[35msrc/app.py[m[36m:[m[32m5[m[36m:[mfor extracurricular [1;31mactivities[m at Mergington High School.
+[35msrc/app.py[m[36m:[m[32m15[m[36m:[m              description="API for viewing and signing up for extracurricular [1;31mactivities[m")
+[35msrc/app.py[m[36m:[m[32m22[m[36m:[m# In-memory [1;31mactivity[m database
+[35msrc/app.py[m[36m:[m[32m25[m[36m:[m[1;31mactivities[m = {
+[35msrc/app.py[m[36m:[m[32m29[m[36m:[m        "max_[1;31mparticipants[m": 12,
+[35msrc/app.py[m[36m:[m[32m30[m[36m:[m        "[1;31mparticipants[m": ["michael@mergington.edu", "daniel@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m35[m[36m:[m        "max_[1;31mparticipants[m": 20,
+[35msrc/app.py[m[36m:[m[32m36[m[36m:[m        "[1;31mparticipants[m": ["emma@mergington.edu", "sophia@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m39[m[36m:[m        "description": "Physical education and sports [1;31mactivities[m",
+[35msrc/app.py[m[36m:[m[32m41[m[36m:[m        "max_[1;31mparticipants[m": 30,
+[35msrc/app.py[m[36m:[m[32m42[m[36m:[m        "[1;31mparticipants[m": ["john@mergington.edu", "olivia@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m47[m[36m:[m            "max_[1;31mparticipants[m": 15,
+[35msrc/app.py[m[36m:[m[32m48[m[36m:[m            "[1;31mparticipants[m": ["james@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m53[m[36m:[m            "max_[1;31mparticipants[m": 20,
+[35msrc/app.py[m[36m:[m[32m54[m[36m:[m            "[1;31mparticipants[m": ["alex@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m59[m[36m:[m            "max_[1;31mparticipants[m": 15,
+[35msrc/app.py[m[36m:[m[32m60[m[36m:[m            "[1;31mparticipants[m": ["isabella@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m65[m[36m:[m            "max_[1;31mparticipants[m": 25,
+[35msrc/app.py[m[36m:[m[32m66[m[36m:[m            "[1;31mparticipants[m": ["lucas@mergington.edu", "ava@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m71[m[36m:[m            "max_[1;31mparticipants[m": 10,
+[35msrc/app.py[m[36m:[m[32m72[m[36m:[m            "[1;31mparticipants[m": ["noah@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m77[m[36m:[m            "max_[1;31mparticipants[m": 18,
+[35msrc/app.py[m[36m:[m[32m78[m[36m:[m            "[1;31mparticipants[m": ["mia@mergington.edu", "ethan@mergington.edu"]
+[35msrc/app.py[m[36m:[m[32m88[m[36m:[m@app.get("/[1;31mactivities[m")
+[35msrc/app.py[m[36m:[m[32m89[m[36m:[mdef get_[1;31mactivities[m():
+[35msrc/app.py[m[36m:[m[32m90[m[36m:[m    return [1;31mactivities[m
+[35msrc/app.py[m[36m:[m[32m93[m[36m:[m@app.post("/[1;31mactivities[m/{[1;31mactivity[m_name}/signup")
+[35msrc/app.py[m[36m:[m[32m94[m[36m:[mdef signup_for_[1;31mactivity[m([1;31mactivity[m_name: str, email: str):
+[35msrc/app.py[m[36m:[m[32m95[m[36m:[m    """Sign up a student for an [1;31mactivity[m"""
+[35msrc/app.py[m[36m:[m[32m98[m[36m:[m    # Validate [1;31mactivity[m exists
+[35msrc/app.py[m[36m:[m[32m99[m[36m:[m    if [1;31mactivity[m_name not in [1;31mactivities[m:
+[35msrc/app.py[m[36m:[m[32m102[m[36m:[m    # Get the specific [1;31mactivity[m
+[35msrc/app.py[m[36m:[m[32m103[m[36m:[m    [1;31mactivity[m = [1;31mactivities[m[[1;31mactivity[m_name]
+[35msrc/app.py[m[36m:[m[32m107[m[36m:[m    if email in [1;31mactivity[m["[1;31mparticipants[m"]:
+[35msrc/app.py[m[36m:[m[32m108[m[36m:[m        raise HTTPException(status_code=400, detail=f"Student {email} is already signed up for {[1;31mactivity[m_name}")
+[35msrc/app.py[m[36m:[m[32m111[m[36m:[m    [1;31mactivity[m["[1;31mparticipants[m"].append(email)
+[35msrc/app.py[m[36m:[m[32m112[m[36m:[m    return {"message": f"Signed up {email} for {[1;31mactivity[m_name}"}
+[35msrc/static/app.js[m[36m:[m[32m2[m[36m:[m  const [1;31mactivities[mList = document.getElementById("[1;31mactivities[m-list");
+[35msrc/static/app.js[m[36m:[m[32m3[m[36m:[m  const [1;31mactivity[mSelect = document.getElementById("[1;31mactivity[m");
+[35msrc/static/app.js[m[36m:[m[32m7[m[36m:[m  // Function to fetch [1;31mactivities[m from API
+[35msrc/static/app.js[m[36m:[m[32m10[m[36m:[m      const response = await [1;31mfetch([m"/[1;31mactivities[m");
+[35msrc/static/app.js[m[36m:[m[32m11[m[36m:[m      const [1;31mactivities[m = await response.json();
+[35msrc/static/app.js[m[36m:[m[32m14[m[36m:[m      [1;31mactivities[mList.innerHTML = "";
+[35msrc/static/app.js[m[36m:[m[32m16[m[36m:[m      // Populate [1;31mactivities[m list
+[35msrc/static/app.js[m[36m:[m[32m17[m[36m:[m      Object.entries([1;31mactivities[m).forEach(([name, details]) => {
+[35msrc/static/app.js[m[36m:[m[32m18[m[36m:[m        const [1;31mactivity[mCard = document.createElement("div");
+[35msrc/static/app.js[m[36m:[m[32m19[m[36m:[m        [1;31mactivity[mCard.className = "[1;31mactivity[m-card";
+[35msrc/static/app.js[m[36m:[m[32m21[m[36m:[m        const spotsLeft = details.max_[1;31mparticipants[m - details.[1;31mparticipants[m.length;
+[35msrc/static/app.js[m[36m:[m[32m23[m[36m:[m        [1;31mactivity[mCard.innerHTML = `
+[35msrc/static/app.js[m[36m:[m[32m28[m[36m:[m         <div class="[1;31mparticipants[m-section">
+[35msrc/static/app.js[m[36m:[m[32m29[m[36m:[m           <strong>Participants (${details.[1;31mparticipants[m.length}):</strong>
+[35msrc/static/app.js[m[36m:[m[32m30[m[36m:[m           ${details.[1;31mparticipants[m.length > 0 
+[35msrc/static/app.js[m[36m:[m[32m31[m[36m:[m             ? `<ul class="[1;31mparticipants[m-list">${details.[1;31mparticipants[m.map(email => `<li>${email}</li>`).join('')}</ul>`
+[35msrc/static/app.js[m[36m:[m[32m32[m[36m:[m             : '<p class="no-[1;31mparticipants[m">No [1;31mparticipants[m yet</p>'
+[35msrc/static/app.js[m[36m:[m[32m37[m[36m:[m        [1;31mactivities[mList.appendChild([1;31mactivity[mCard);
+[35msrc/static/app.js[m[36m:[m[32m43[m[36m:[m        [1;31mactivity[mSelect.appendChild(option);
+[35msrc/static/app.js[m[36m:[m[32m46[m[36m:[m      [1;31mactivities[mList.innerHTML = "<p>Failed to load [1;31mactivities[m. Please try again later.</p>";
+[35msrc/static/app.js[m[36m:[m[32m47[m[36m:[m      console.error("Error fetching [1;31mactivities[m:", error);
+[35msrc/static/app.js[m[36m:[m[32m56[m[36m:[m    const [1;31mactivity[m = document.getElementById("[1;31mactivity[m").value;
+[35msrc/static/app.js[m[36m:[m[32m59[m[36m:[m      const response = await [1;31mfetch([m
+[35msrc/static/app.js[m[36m:[m[32m60[m[36m:[m        `/[1;31mactivities[m/${encodeURIComponent([1;31mactivity[m)}/signup?email=${encodeURIComponent(email)}`,
+[35msrc/static/index.html[m[36m:[m[32m16[m[36m:[m      <section id="[1;31mactivities[m-container">
+[35msrc/static/index.html[m[36m:[m[32m18[m[36m:[m        <div id="[1;31mactivities[m-list">
+[35msrc/static/index.html[m[36m:[m[32m20[m[36m:[m          <p>Loading [1;31mactivities[m...</p>
+[35msrc/static/index.html[m[36m:[m[32m32[m[36m:[m            <label for="[1;31mactivity[m">Select Activity:</label>
+[35msrc/static/index.html[m[36m:[m[32m33[m[36m:[m            <select id="[1;31mactivity[m" required>
+[35msrc/static/index.html[m[36m:[m[32m34[m[36m:[m              <option value="">-- Select an [1;31mactivity[m --</option>
+[35msrc/static/styles.css[m[36m:[m[32m60[m[36m:[m.[1;31mactivity[m-card {
+[35msrc/static/styles.css[m[36m:[m[32m68[m[36m:[m.[1;31mactivity[m-card h4 {
+[35msrc/static/styles.css[m[36m:[m[32m73[m[36m:[m.[1;31mactivity[m-card p {
+[35msrc/static/styles.css[m[36m:[m[32m86[m[36m:[m  .[1;31mparticipants[m-section {
+[35msrc/static/styles.css[m[36m:[m[32m92[m[36m:[m  .[1;31mparticipants[m-section strong {
+[35msrc/static/styles.css[m[36m:[m[32m98[m[36m:[m  .[1;31mparticipants[m-list {
+[35msrc/static/styles.css[m[36m:[m[32m104[m[36m:[m  .[1;31mparticipants[m-list li {
+[35msrc/static/styles.css[m[36m:[m[32m112[m[36m:[m  .[1;31mparticipants[m-list li:before {
+[35msrc/static/styles.css[m[36m:[m[32m120[m[36m:[m  .no-[1;31mparticipants[m {
